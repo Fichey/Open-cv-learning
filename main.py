@@ -1,8 +1,22 @@
 import tkinter
 import customtkinter
 import numpy
+import cv2 as cv
+import sys
 
-print("hello world")
+
+
+img = cv.imread(filename="huh.jpg")
+
+if img is None:
+    sys.exit("could not read the file.")
+
+cv.imshow("Display window", img)
+k = cv.waitKey(0)
+
+if k == ord("s"):
+    cv.imwrite("huh.jpg",img)
+    
 
 # customtkinter.set_appearance_mode("system")
 
