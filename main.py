@@ -5,20 +5,21 @@ import numpy as np
 import cv2 as cv
 import sys
 
-#reducing the amount of pixels in an image
+#getting the average value of the sqare if pixels
 
 def average(cutout: np.uint8):
+    q = 1
     cutout = cutout.reshape(len(cutout)**2)
     a = int(sum(cutout) / len(cutout))
     return a
 
 
-# test = np.arange(25)
-# test = test.reshape(5,5)
 
-# print(average(test))
-        
+
+
+#apparently the compress function is built in opencv but I realized this after writing my own so might as well keep it
     
+#reducing the amount of pixels in an image
 
 def compress(img: np.uint8, size_of_sqare: int)-> np.uint8:
     if size_of_sqare < 2:
@@ -29,32 +30,17 @@ def compress(img: np.uint8, size_of_sqare: int)-> np.uint8:
     cols = cols - cols%size_of_sqare
     print(rows, cols)
     
+    print(img)
     
-    # if len(img.shape) == 2:
+    if len(img.shape) == 2:
+        compressed_img = np.array([[
+                    average(img[y:y+size_of_sqare,x:x+size_of_sqare])
+                for x in range(0,cols,size_of_sqare)] 
+            for y in range(0,rows,size_of_sqare)]
+            ).astype(np.uint8)
+        return compressed_img
 
-    
-    
-    # test = np.arange(25)
-    # test = test.reshape(5,5)
-    # print(test)
-    
-# [[ 0  1  2  3  4] -- test
-#  [ 5  6  7  8  9]
-#  [10 11 12 13 14]
-#  [15 16 17 18 19]
-#  [20 21 22 23 24]]
-    
-    # a = np.array([[test[y, x] for x in range(0, test.shape[1])] for y in range(0, test.shape[0])])
-    # print(a)
-    
-# [[ 0  1  2  3  4] -- a
-#  [ 5  6  7  8  9]
-#  [10 11 12 13 14]
-#  [15 16 17 18 19]
-#  [20 21 22 23 24]]
-    
 
-            
 
 
 
@@ -63,15 +49,20 @@ img = cv.imread(filename="huh.jpg")
 if img is None:
     sys.exit("could not read the file.")
 
-print(img.dtype)
 
 # copying and converting to gray
 img_clone = img.copy()
 img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
-compress(img,5)
+test = np.arange(36)
+test = test.reshape(6,6)
+print(test[0:2][0:2])
 
-# print(img.shape)
+print(img.dtype)
+
+img = compress(img,2)
+
+print(img.shape)
 # print(img_clone.size)
 
 # for row in img:
@@ -83,11 +74,11 @@ compress(img,5)
 #     print("\n")
     
     
-# cv.imshow("Display window", img)
-# k = cv.waitKey(0)
+cv.imshow("Display window", img)
+k = cv.waitKey(0)
 
-# if k == ord("s"):
-#     cv.imwrite("huh.jpg",img)
+if k == ord("s"):
+    cv.imwrite("huh.jpg",img)
     
 
 # customtkinter.set_appearance_mode("system")
