@@ -13,10 +13,6 @@ def average(cutout: np.uint8):
     a = int(sum(cutout) / len(cutout))
     return a
 
-
-
-
-
 #apparently the compress function is built in opencv but I realized this after writing my own so might as well keep it
     
 #reducing the amount of pixels in an image
@@ -41,10 +37,33 @@ def compress(img: np.uint8, size_of_sqare: int)-> np.uint8:
         return compressed_img
 
 
+def convert(img: np.uint8):
+    numbers = open("values.txt","r")
+    values = [float(value) for value in numbers.readline().split(", ")]
+    numbers.close()
+    characters = "`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@"
+    
+    
+    
+    
+    
+    print(len(characters), len(values))
+    # characters = " .:-=+*#%@"
+    # print(values)
+    for row in img:
+        for pixel in row:
+            for value_index in range(len(values)):
+                if values[value_index] >= pixel/255:
+                    print(characters[value_index],end="")
+                    break
+        print()
+    
+    
+    
 
 
 
-img = cv.imread(filename="huh.jpg")
+img = cv.imread(filename="bird.jpg")
 
 if img is None:
     sys.exit("could not read the file.")
@@ -60,25 +79,21 @@ print(test[0:2][0:2])
 
 print(img.dtype)
 
-img = compress(img,2)
+img = compress(img,3)
 
 print(img.shape)
 # print(img_clone.size)
 
-# for row in img:
-#     for pixel in row:
-#         if pixel > 126:
-#             print('&',end="")
-#             continue
-#         print('.',end="")
-#     print("\n")
-    
-    
-cv.imshow("Display window", img)
-k = cv.waitKey(0)
 
-if k == ord("s"):
-    cv.imwrite("huh.jpg",img)
+
+convert(img)
+    
+    
+# cv.imshow("Display window", img)
+# k = cv.waitKey(0)
+
+# if k == ord("s"):
+#     cv.imwrite("huh.jpg",img)
     
 
 # customtkinter.set_appearance_mode("system")
