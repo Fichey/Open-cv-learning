@@ -72,7 +72,23 @@ def img_to_asc():
     convert(img)
 
 def vid_to_asc():
-    pass
+    vid_name = input("Input the name of the video to convert: ")
+    cap = cv.VideoCapture(vid_name)
+    
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frame = cv.resize(frame, (int(frame.shape[1]),int(frame.shape[0])), interpolation = cv.INTER_CUBIC)
+    
+        cv.imshow(vid_name,frame)
+        
+        if cv.waitKey(1) and 0xFF == ord('q'):
+            break
+        
+    cap.release()
+    cv.destroyAllWindows()
+    
 
 
 # main app
