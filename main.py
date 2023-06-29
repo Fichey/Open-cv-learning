@@ -13,28 +13,28 @@ def average(cutout: np.uint8):
     a = int(sum(cutout) / len(cutout))
     return a
 
+
+
 #apparently the compress function is built in opencv but I realized this after writing my own so might as well keep it
     
-#reducing the amount of pixels in an image
-
-def compress(img: np.uint8, size_of_sqare: int)-> np.uint8:
-    if size_of_sqare < 2:
-        return img
+# def compress(img: np.uint8, size_of_sqare: int)-> np.uint8:
+#     if size_of_sqare < 2:
+#         return img
     
-    rows, cols = img.shape
-    rows = rows - rows%size_of_sqare #clipping right and bottom for a clean compression
-    cols = cols - cols%size_of_sqare
-    print(rows, cols)
+#     rows, cols = img.shape
+#     rows = rows - rows%size_of_sqare #clipping right and bottom for a clean compression
+#     cols = cols - cols%size_of_sqare
+#     print(rows, cols)
     
-    print(img)
+#     print(img)
     
-    if len(img.shape) == 2:
-        compressed_img = np.array([[
-                    average(img[y:y+size_of_sqare,x:x+size_of_sqare])
-                for x in range(0,cols,size_of_sqare)] 
-            for y in range(0,rows,size_of_sqare)]
-            ).astype(np.uint8)
-        return compressed_img
+#     if len(img.shape) == 2:
+#         compressed_img = np.array([[
+#                     average(img[y:y+size_of_sqare,x:x+size_of_sqare])
+#                 for x in range(0,cols,size_of_sqare)] 
+#             for y in range(0,rows,size_of_sqare)]
+#             ).astype(np.uint8)
+#         return compressed_img
 
 
 # converting img array to ascii characters and printing them
@@ -52,17 +52,21 @@ def convert(img: np.uint8):
 # main app
     
 file_name = input("which file would you like to convert? :")
-compression_level = input("what converion level would you like to use? :")
-
 
 img = cv.imread(filename=file_name)
 if img is None:
     sys.exit("could not read the file.")
+    
+    
+print("***INPUT 0 FOR ORIGINAL IMAGE SIZE***")
+new_width = int(input("input the desired width of an image: "))
+new_height = int(input("input the desired height of the image: "))
 
-
+    
 img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
-img = compress(img,3)
+if(new_height != 0 and new_width != 0):
+    img = cv.resize(img, (new_width, new_height), interpolation = cv.INTER_CUBIC)
 
 convert(img)
 
