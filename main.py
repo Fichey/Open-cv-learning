@@ -5,6 +5,7 @@ import numpy as np
 import cv2 as cv
 import sys
 import os
+from pynput import keyboard
 
 
 
@@ -43,14 +44,13 @@ import os
 
 
 # converting img array to ascii characters and printing them
-
+print(len(" .,:I>?]1/trzXQOmhoWB@$"))
 def convert(img: np.uint8):
-    characters = " .:-=+*#%@"
+    characters = " .,:I>?]1/trzXQOmwqhB@$"
 
     for row in img:
         for pixel in row:
-            print(characters[pixel//26],end="")
-            print(characters[pixel//26],end="")
+            print(characters[int(pixel//11.1)] * 3,end="")
         print()
     
 
@@ -72,20 +72,26 @@ def img_to_asc():
     os.system('cls')
     convert(img)
 
+
+
 def vid_to_asc():
     vid_name = input("Input the name of the video to convert: ")
     cap = cv.VideoCapture(vid_name)
-    
+
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
         
-
-        frame = cv.resize(frame, (int(frame.shape[1]), int(frame.shape[0])), interpolation = cv.INTER_CUBIC)
-    
-        cv.imshow(vid_name,frame)
+        if frame.shape[0] <= frame.shape[1]:
+            divider = frame.shape[0] / 30
+        else:
+            divider = frame.shape[1] / 30
         frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        frame = cv.resize(frame, (int(int(frame.shape[1])/divider), int(int(frame.shape[0])/divider)), interpolation = cv.INTER_CUBIC)
+    
+        #cv.imshow(vid_name,frame)
+        
         
         os.system('cls')
         convert(frame)
@@ -100,11 +106,11 @@ def vid_to_asc():
         # print(frame.shape)
         # cv.imshow(vid_name + "(grayscale)",n_frame)
         
-        if cv.waitKey(1) and 0xFF == ord('q'):
-            break
-        
+            
+    os.system('cls')
     cap.release()
     cv.destroyAllWindows()
+
     
 
 
@@ -120,6 +126,7 @@ match choice:
         img_to_asc()
     case "2":
         vid_to_asc()
+
     
 
 
