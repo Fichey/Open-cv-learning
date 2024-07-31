@@ -4,6 +4,7 @@ import math
 import numpy as np
 import cv2 as cv
 import sys
+import os
 
 
 
@@ -68,7 +69,7 @@ def img_to_asc():
 
     if(new_height != 0 and new_width != 0):
         img = cv.resize(img, (new_width, new_height), interpolation = cv.INTER_CUBIC)
-
+    os.system('cls')
     convert(img)
 
 def vid_to_asc():
@@ -79,20 +80,25 @@ def vid_to_asc():
         ret, frame = cap.read()
         if not ret:
             break
-        frame = cv.resize(frame, (int(frame.shape[1]),int(frame.shape[0])), interpolation = cv.INTER_CUBIC)
+        
+
+        frame = cv.resize(frame, (int(frame.shape[1]), int(frame.shape[0])), interpolation = cv.INTER_CUBIC)
     
         cv.imshow(vid_name,frame)
         frame = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        print(frame.size)
-        n_frame = np.zeros(frame.size)
-        print(n_frame)
-        n_frame = n_frame.reshape(frame.shape[0], frame.shape[1])
-        for i in range(frame.shape[0]-1):
-            for j in range(frame.shape[1]-1):
-                if abs(frame[i][j] - frame[i+1][j]) > 126 or abs(frame[i][j] - frame[i][j+1]) > 126:
-                    n_frame[i][j] = 255
-        print(frame.shape)
-        cv.imshow(vid_name + "(grayscale)",n_frame)
+        
+        os.system('cls')
+        convert(frame)
+        # print(frame.size)
+        # n_frame = np.zeros(frame.size)
+        # print(n_frame)
+        # n_frame = n_frame.reshape(frame.shape[0], frame.shape[1])
+        # for i in range(frame.shape[0]-1):
+        #     for j in range(frame.shape[1]-1):
+        #         if abs(frame[i][j] - frame[i+1][j]) > 126 or abs(frame[i][j] - frame[i][j+1]) > 126:
+        #             n_frame[i][j] = 255
+        # print(frame.shape)
+        # cv.imshow(vid_name + "(grayscale)",n_frame)
         
         if cv.waitKey(1) and 0xFF == ord('q'):
             break
