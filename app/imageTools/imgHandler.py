@@ -1,7 +1,7 @@
 import sys
 import os
 import cv2 as cv
-from asciiConverter import convert
+from imageTools.asciiConverter import convert
 
 
 def imgToAsc():

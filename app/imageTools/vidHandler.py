@@ -1,6 +1,6 @@
 import os
 import cv2 as cv
-from asciiConverter import convert
+from imageTools.asciiConverter import convert
 
 def vidToAsc():
     vid_name = input("Input the name of the video to convert: ")
