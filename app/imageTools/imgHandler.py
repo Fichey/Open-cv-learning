@@ -4,6 +4,7 @@ import cv2 as cv
 from imageTools.asciiConverter import convert
 
 
+
 def imgToAsc():
     file_name = input("which file would you like to convert? :")
 
@@ -22,4 +23,4 @@ def imgToAsc():
     os.system('cls')
     os.system('cls')
     os.system('cls')
-    convert(img)
+    return convert(img)

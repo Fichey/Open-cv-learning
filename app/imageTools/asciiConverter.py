@@ -3,11 +3,13 @@ import numpy as np
 def convert(img: np.uint8):
     characters = " _.,-=+:;cba!?0123456789$W#@Ñ"
     divisiveNumber = 256/ len(characters)
+    resultFrame = ""
     
     for row in img:
         for pixel in row:
-            print(characters[int(pixel//divisiveNumber)] * 3,end="")
-        print()
+            resultFrame += characters[int(pixel//divisiveNumber)] * 3
+        resultFrame += "\n"
+    return resultFrame
 
 #apparently the compress function is built in opencv but I realized this after writing my own so might as well keep it
     

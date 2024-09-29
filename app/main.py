@@ -1,6 +1,10 @@
 from imageTools.imgHandler import imgToAsc
 from imageTools.vidHandler import vidToAsc
 import os 
+import sys
+from UI.pyqttest import MyWidget
+from PyQt6 import QtCore, QtWidgets, QtGui
+
 
 # main app
 
@@ -11,11 +15,21 @@ def main():
     print("2. Convert a video into ascii art")
     choice = input("")
 
+    app = QtWidgets.QApplication([])
+    widget = MyWidget()
+
     match choice:
         case "1":
-            imgToAsc()
+            widget.text.setText(imgToAsc())
+            
         case "2":
             vidToAsc()
+    
+    
+    widget.resize(800, 600)
+    widget.show()
+    
+    sys.exit(app.exec())
 
 if __name__ == "__main__":
     main()
