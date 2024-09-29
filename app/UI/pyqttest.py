@@ -9,9 +9,12 @@ class MyWidget(QtWidgets.QWidget):
         self.button = QtWidgets.QPushButton("Click me!")
         self.text = QtWidgets.QLabel("Hello World",
                                      alignment=QtCore.Qt.AlignmentFlag.AlignCenter,
-                                     font=QtGui.QFont('Consola', 10))
+                                     font=QtGui.QFont('Courier', 10))
+        
         
         #making font height and with identical seems to be harder than i thought...
+        
+        #nevermind just found 'Courier'
         
         self.layout = QtWidgets.QVBoxLayout(self)
         

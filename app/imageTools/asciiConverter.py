@@ -1,7 +1,7 @@
 import numpy as np
 
 def convert(img: np.uint8):
-    characters = " _.,-=+:;cba!?0123456789$W#@Ñ"
+    characters = "Ñ@#W$9876543210?!abc;:+=-,._ "
     divisiveNumber = 256/ len(characters)
     resultFrame = ""
     

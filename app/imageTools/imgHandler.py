@@ -20,7 +20,5 @@ def imgToAsc():
 
     if(new_height != 0 and new_width != 0):
         img = cv.resize(img, (new_width, new_height), interpolation = cv.INTER_CUBIC)
-    os.system('cls')
-    os.system('cls')
-    os.system('cls')
+
     return convert(img)

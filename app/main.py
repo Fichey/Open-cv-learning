@@ -10,6 +10,7 @@ from PyQt6 import QtCore, QtWidgets, QtGui
 
 def main():
     # print(os.getcwd())
+    print(QtGui.QFontMetrics(QtGui.QFont('Courier', 10)).lineSpacing)
     print("Welcome! Please choose what would you like to do by inputing a number")
     print("1. Convert an image into ascii art")
     print("2. Convert a video into ascii art")
